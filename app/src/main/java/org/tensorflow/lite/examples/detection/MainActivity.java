@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.tensorflow.lite.examples.detection.tflite.Classifier;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,10 +27,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         departamentoArrayList = new ArrayList<>();
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("1");
+        arrayList.add("2");
+        arrayList.add("3");
+        arrayList.add("4");
 
-        departamentoArrayList.add(new Departamento("departamento 1"));
-        departamentoArrayList.add(new Departamento("departamento 2"));
-        departamentoArrayList.add(new Departamento("departamento 3"));
+
+        departamentoArrayList.add(new Departamento("departamento 1", arrayList));
 
         recyclerView = findViewById(R.id.recyclerView);
         depaAdapter = new DepaAdapter(this, departamentoArrayList);

@@ -33,6 +33,7 @@ import android.util.TypedValue;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
     private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
     private static final boolean MAINTAIN_ASPECT = false;
-    private static final Size DESIRED_PREVIEW_SIZE = new Size(540, 480);
+    private static final Size DESIRED_PREVIEW_SIZE = new Size(640, 480);
     private static final boolean SAVE_PREVIEW_BITMAP = false;
     private static final float TEXT_SIZE_DIP = 10;
     OverlayView trackingOverlay;

@@ -1,7 +1,9 @@
 package org.tensorflow.lite.examples.detection;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +43,10 @@ public class DepaAdapter extends RecyclerView.Adapter<DepaAdapter.DepartamentoVi
             @Override
             public void onClick(View v) {
 
-                Bundle bundle = new Bundle();
-
+                Intent intent = new Intent(context, Detalles.class);
+                intent.putExtra("departamento", (Parcelable) departamentoArrayList.get(position));
+                intent.putExtra("objetosEncontrados", departamentoArrayList.get(position).getObjetosEncontrados());
+                context.startActivity(intent);
             }
         });
     }

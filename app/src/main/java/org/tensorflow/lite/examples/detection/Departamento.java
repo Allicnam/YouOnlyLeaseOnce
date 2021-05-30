@@ -3,12 +3,21 @@ package org.tensorflow.lite.examples.detection;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Departamento implements Parcelable {
+import org.tensorflow.lite.examples.detection.tflite.Classifier;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Departamento implements Parcelable, Serializable {
 
     private String nombre;
 
-    public Departamento(String nombre) {
+    private ArrayList<String> objetosEncontrados;
+
+    public Departamento(String nombre, ArrayList<String> objetosEncontrados) {
         this.nombre = nombre;
+        this.objetosEncontrados = objetosEncontrados;
     }
 
     protected Departamento(Parcel in) {
@@ -39,6 +48,10 @@ public class Departamento implements Parcelable {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public ArrayList<String>  getObjetosEncontrados() {
+        return objetosEncontrados;
     }
 
 }
