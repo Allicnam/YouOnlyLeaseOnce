@@ -58,6 +58,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/labelmapRaccoon.txt";//"file:///android_asset/coco.txt";
 
+    final List<Classifier.Recognition> mappedRecognitions = new LinkedList<Classifier.Recognition>();
+
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
     private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
     private static final boolean MAINTAIN_ASPECT = false;
@@ -205,8 +207,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 break;
                         }
 
-                        final List<Classifier.Recognition> mappedRecognitions =
-                                new LinkedList<Classifier.Recognition>();
+                        //final List<Classifier.Recognition> mappedRecognitions =
+                                //new LinkedList<Classifier.Recognition>();
 
                         for (final Classifier.Recognition result : results) {
                             final RectF location = result.getLocation();
@@ -262,5 +264,11 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
     @Override
     protected void setNumThreads(final int numThreads) {
         runInBackground(() -> detector.setNumThreads(numThreads));
+    }
+
+    public void onDestroy() {
+
+        super.onDestroy();
+        System.out.print("salí");
     }
 }
