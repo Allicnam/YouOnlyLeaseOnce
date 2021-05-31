@@ -8,10 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.tensorflow.lite.examples.detection.tflite.Classifier;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         cameraButton = findViewById(R.id.button);
-        cameraButton.setOnClickListener(v -> startActivity(new Intent(this, DetectorActivity.class)));
+        cameraButton.setOnClickListener(v -> startActivityForResult(new Intent(this, DetectorActivity.class), 1));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+                ArrayList<String> lista = (ArrayList<String>) data.getSerializableExtra("recognition");
+            }
+        }
     }
 }

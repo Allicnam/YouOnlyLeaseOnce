@@ -16,6 +16,7 @@
 
 package org.tensorflow.lite.examples.detection;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -267,9 +268,21 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         runInBackground(() -> detector.setNumThreads(numThreads));
     }
 
-    public void onDestroy() {
+    @Override
+    public void onBackPressed() {
 
-        super.onDestroy();
-        System.out.print("salí");
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        for (Classifier.Recognition r : mappedRecognitions) {
+
+            if (!arrayList.contains(r.getTitle())) {
+                arrayList.add(r.getTitle());
+            }
+        }
+        Intent intent = new Intent(this,MainActivity.class);
+
+        intent.putExtra("recognition", arrayList);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
