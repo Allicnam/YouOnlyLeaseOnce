@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
     DepaAdapter depaAdapter;
     Button cameraButton;
 
+    public static final String TITULO = "departamento ";
+    int contador = 1;
+
     private ArrayList<Departamento> departamentoArrayList;
 
     @Override
@@ -24,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         departamentoArrayList = new ArrayList<>();
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("1");
-        arrayList.add("2");
-        arrayList.add("3");
-        arrayList.add("4");
-
-
-        departamentoArrayList.add(new Departamento("departamento 1", arrayList));
 
         recyclerView = findViewById(R.id.recyclerView);
         depaAdapter = new DepaAdapter(this, departamentoArrayList);
@@ -49,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
 
                 ArrayList<String> lista = (ArrayList<String>) data.getSerializableExtra("recognition");
+
+                departamentoArrayList.add(new Departamento(TITULO + contador, lista));
+                depaAdapter.notifyDataSetChanged();
+                contador += 1;
             }
         }
     }
