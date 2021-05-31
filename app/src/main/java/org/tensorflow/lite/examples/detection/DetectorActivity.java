@@ -60,7 +60,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/labelmapRaccoon.txt";//"file:///android_asset/coco.txt";
 
-    final List<Classifier.Recognition> mappedRecognitions = new LinkedList<Classifier.Recognition>();
+    final List<String> recognitionsString = new LinkedList<String>();
 
     private static final DetectorMode MODE = DetectorMode.TF_OD_API;
     private static final float MINIMUM_CONFIDENCE_TF_OD_API = 0.5f;
@@ -209,8 +209,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 break;
                         }
 
-                        //final List<Classifier.Recognition> mappedRecognitions =
-                                //new LinkedList<Classifier.Recognition>();
+                        final List<Classifier.Recognition> mappedRecognitions =
+                                new LinkedList<Classifier.Recognition>();
 
                         for (final Classifier.Recognition result : results) {
                             final RectF location = result.getLocation();
@@ -221,6 +221,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
+                                recognitionsString.add(result.getTitle());
                             }
                         }
 
@@ -273,10 +274,10 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
         ArrayList<String> arrayList = new ArrayList<>();
 
-        for (Classifier.Recognition r : mappedRecognitions) {
+        for (String r : recognitionsString) {
 
-            if (!arrayList.contains(r.getTitle())) {
-                arrayList.add(r.getTitle());
+            if (!arrayList.contains(r)) {
+                arrayList.add(r);
             }
         }
         Intent intent = new Intent(this,MainActivity.class);
