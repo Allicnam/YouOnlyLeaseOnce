@@ -1,22 +1,38 @@
-package org.tensorflow.lite.examples.detection;
+package org.tensorflow.lite.examples.detection.Database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.tensorflow.lite.examples.detection.tflite.Classifier;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
+@Entity
 public class Departamento implements Parcelable, Serializable {
 
+    @PrimaryKey
+    @NonNull
+    private String did;
+
+    @ColumnInfo(name="nombre")
     private String nombre;
 
+    @ColumnInfo(name="objetos")
     private ArrayList<String> objetosEncontrados;
 
-    public Departamento(String nombre, ArrayList<String> objetosEncontrados) {
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
+
+
+    public Departamento(String nombre, ArrayList<String> objetosEncontrados, byte[] image) {
         this.nombre = nombre;
+        this.image = image;
+        this.did = UUID.randomUUID().toString();
         this.objetosEncontrados = objetosEncontrados;
     }
 
@@ -50,8 +66,23 @@ public class Departamento implements Parcelable, Serializable {
         return nombre;
     }
 
+    public String getDid() {
+        return did;
+    }
+
     public ArrayList<String>  getObjetosEncontrados() {
         return objetosEncontrados;
     }
 
+    public void setDid(@NonNull String id) {
+        did = id;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

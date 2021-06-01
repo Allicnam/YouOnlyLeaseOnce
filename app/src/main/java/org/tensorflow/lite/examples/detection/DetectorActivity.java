@@ -33,6 +33,7 @@ import android.util.Size;
 import android.util.TypedValue;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -87,6 +88,8 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private MultiBoxTracker tracker;
 
+    private int lastAmountRecog = 0;
+    private Bitmap frameToSave = null;
     private BorderedText borderedText;
 
     @Override
@@ -222,11 +225,19 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
                                 result.setLocation(location);
                                 mappedRecognitions.add(result);
                                 recognitionsString.add(result.getTitle());
+
+
                             }
                         }
 
+
                         tracker.trackResults(mappedRecognitions, currTimestamp);
                         trackingOverlay.postInvalidate();
+
+                        if(lastAmountRecog < mappedRecognitions.size()){
+                            frameToSave = cropCopyBitmap;
+                            lastAmountRecog = mappedRecognitions.size();
+                        }
 
                         computingDetection = false;
 
@@ -281,8 +292,16 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
             }
         }
         Intent intent = new Intent(this,MainActivity.class);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        byte[] byteArray = null;
+        if(frameToSave != null) {
+            frameToSave.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+            frameToSave.recycle();
+        }
 
         intent.putExtra("recognition", arrayList);
+        intent.putExtra("image", byteArray);
         setResult(RESULT_OK, intent);
         finish();
     }
