@@ -57,9 +57,9 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
     private static final int TF_OD_API_INPUT_SIZE = 416;
     private static final boolean TF_OD_API_IS_QUANTIZED = false;
-    private static final String TF_OD_API_MODEL_FILE = "raccoon.tflite";//"yolov4-416-fp32.tflite";
+    private static final String TF_OD_API_MODEL_FILE = "yolov4_own.tflite";//"yolov4-416-fp32.tflite";
 
-    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/labelmapRaccoon.txt";//"file:///android_asset/coco.txt";
+    private static final String TF_OD_API_LABELS_FILE = "file:///android_asset/ownClasses.txt";//"file:///android_asset/coco.txt";
 
     final List<String> recognitionsString = new LinkedList<String>();
 
@@ -217,7 +217,7 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
 
                         for (final Classifier.Recognition result : results) {
                             final RectF location = result.getLocation();
-                            if (location != null && result.getConfidence() >= minimumConfidence) {
+                            if (location != null && result.getConfidence() >= minimumConfidence && acceptedClasses.contains(result.getDetectedClass())) {
                                 canvas.drawRect(location, paint);
 
                                 cropToFrameTransform.mapRect(location);
