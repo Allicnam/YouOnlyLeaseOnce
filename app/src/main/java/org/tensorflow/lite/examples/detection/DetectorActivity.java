@@ -31,6 +31,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -305,4 +307,29 @@ public class DetectorActivity extends CameraActivity implements OnImageAvailable
         setResult(RESULT_OK, intent);
         finish();
     }
+
+    public void onFinalizar(View v) {
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        for (String r : recognitionsString) {
+
+            if (!arrayList.contains(r)) {
+                arrayList.add(r);
+            }
+        }
+        Intent intent = new Intent(this,MainActivity.class);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        byte[] byteArray = null;
+        if(frameToSave != null) {
+            frameToSave.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
+            frameToSave.recycle();
+        }
+
+        intent.putExtra("recognition", arrayList);
+        intent.putExtra("image", byteArray);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
 }

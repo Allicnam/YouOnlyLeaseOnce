@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -20,5 +21,8 @@ public interface  DepartamentoDAO {
 
     @Delete
     void delete(Departamento departamento);
+
+    @Query("UPDATE Departamento SET objetos = :objs WHERE did = :did")
+    void update(String did, ArrayList<String> objs);
 
 }

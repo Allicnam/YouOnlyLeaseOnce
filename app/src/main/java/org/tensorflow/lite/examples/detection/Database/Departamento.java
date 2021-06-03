@@ -38,6 +38,7 @@ public class Departamento implements Parcelable, Serializable {
 
     protected Departamento(Parcel in) {
         nombre = in.readString();
+        did = in.readString();
     }
 
     public static final Creator<Departamento> CREATOR = new Creator<Departamento>() {
@@ -60,6 +61,7 @@ public class Departamento implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nombre);
+        dest.writeString(did);
     }
 
     public String getNombre() {

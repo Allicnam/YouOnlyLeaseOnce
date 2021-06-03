@@ -17,10 +17,15 @@ public class DetallesAdapter extends RecyclerView.Adapter<DetallesAdapter.Depart
 
     private ArrayList<String> detallesArrayList;
     private Context context;
+    private DepartamentoController mDepaController;
+    private String DepartamentoId;
 
-    public DetallesAdapter(Context context, ArrayList<String> departamentoArrayList) {
+    public DetallesAdapter(Context context, ArrayList<String> departamentoArrayList, String departamentoId, DepartamentoController mDepaC) {
         this.context = context;
         this.detallesArrayList = departamentoArrayList;
+        this.DepartamentoId = departamentoId;
+        this.mDepaController = mDepaC;
+
     }
 
     @NonNull
@@ -42,6 +47,12 @@ public class DetallesAdapter extends RecyclerView.Adapter<DetallesAdapter.Depart
     @Override
     public int getItemCount() {
         return detallesArrayList.size();
+    }
+
+    public void addItem(String s) {
+        this.detallesArrayList.add(s);
+        this.mDepaController.updateDepaItems(this.DepartamentoId, this.detallesArrayList);
+        notifyDataSetChanged();
     }
 
     public class DepartamentoViewHolder extends  RecyclerView.ViewHolder{

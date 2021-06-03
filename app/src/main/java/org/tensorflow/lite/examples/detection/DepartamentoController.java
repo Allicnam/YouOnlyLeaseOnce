@@ -52,5 +52,7 @@ public class DepartamentoController {
     public void deleteDepa(Departamento depa) {
         mDepartamentoDAO.delete(depa);
     }
+
+    public void updateDepaItems(String did, ArrayList<String> updatedItems) { mDepartamentoDAO.update(did, updatedItems);}
 }
 
