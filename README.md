@@ -20,5 +20,7 @@ Las clases u objetos que se detectan son:
 
 Finalmente, la aplicación se basa en el demo de detección de objetos de tensor flow.
 
-
+### Notas
+Esta versión del proyecto contiene el modelo entrenado por nosotros.  
+Para la aplicación con el modelo pre-entrenado de YOLO, con las clases de COCO, ver la branch `filter-classes` en este repositorio.
 
